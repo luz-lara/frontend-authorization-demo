@@ -1,5 +1,6 @@
 import { Routes, Route,Navigate} from "react-router-dom";
 import {useState} from "react";
+import * as auth from '../utils/auth';
 import Ducks from "./Ducks";
 import Login from "./Login";
 import MyProfile from "./MyProfile";
@@ -10,6 +11,20 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
 
 const [isLoggedIn, setIsLoggedIn] = useState(false);
+const handleRegistration = ({
+  username,
+  email,
+  password,
+  confirmPassword,
+}) =>{
+  if (password === confirmPassword){
+    auth.register(username,password,email)
+    .then(()=>{
+      // TODO: Handle successful registration
+    })
+    .catch(console.error);
+  }
+}
 
   return (
     <Routes>
@@ -37,7 +52,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
         path="/register"
         element={
           <div className="registerContainer">
-            <Register />
+            <Register handleRegistration={handleRegistration}/>
           </div>
         }
       />
