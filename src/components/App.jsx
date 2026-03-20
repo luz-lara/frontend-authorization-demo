@@ -1,4 +1,4 @@
-import { Routes, Route,Navigate} from "react-router-dom";
+import { Routes, Route,Navigate,useNavigate} from "react-router-dom";
 import {useState} from "react";
 import * as auth from '../utils/auth';
 import Ducks from "./Ducks";
@@ -11,6 +11,9 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
 
 const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+ const navigate = useNavigate();
+
 const handleRegistration = ({
   username,
   email,
@@ -18,9 +21,10 @@ const handleRegistration = ({
   confirmPassword,
 }) =>{
   if (password === confirmPassword){
-    auth.register(username,password,email)
+    auth
+    .register(username,password,email)
     .then(()=>{
-      // TODO: Handle successful registration
+      navigate("/login");
     })
     .catch(console.error);
   }
