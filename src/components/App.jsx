@@ -58,7 +58,7 @@ const handleLogin =({username, password}) =>{
 
       <Route path="/my-profile" element={
         <ProtectedRoute isLoggedIn={isLoggedIn}>
-        <MyProfile />
+        <MyProfile userData={userData} />
         </ProtectedRoute>
         } />
       <Route
