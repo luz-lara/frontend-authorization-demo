@@ -1,6 +1,7 @@
 import { Routes, Route,Navigate,useNavigate} from "react-router-dom";
 import {useState} from "react";
 import * as auth from '../utils/auth';
+import { setToken, getToken } from "../utils/token";
 import Ducks from "./Ducks";
 import Login from "./Login";
 import MyProfile from "./MyProfile";
@@ -38,6 +39,7 @@ const handleLogin =({username, password}) =>{
   .authorize(username, password)
   .then((data)=>{
     if(data.jwt){
+      setToken(data.jwt);
       setUserData(data.user);
       setIsLoggedIn(true);
       navigate("/ducks");
