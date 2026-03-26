@@ -1,5 +1,5 @@
 import { Routes, Route,Navigate,useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import * as auth from '../utils/auth';
 import { setToken, getToken } from "../utils/token";
 import Ducks from "./Ducks";
@@ -10,7 +10,12 @@ import "./styles/App.css";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
-
+useEffect(()=>{
+  const jwt = getToken();
+  if (!jwt){
+    return;
+  }
+},[])
 const [userData, setUserData] = useState({username: "", email: ""})
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 
