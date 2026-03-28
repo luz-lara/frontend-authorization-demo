@@ -1,6 +1,7 @@
 import { Routes, Route,Navigate,useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import * as auth from '../utils/auth';
+import * as api from '../utils/api';
 import { setToken, getToken } from "../utils/token";
 import Ducks from "./Ducks";
 import Login from "./Login";
@@ -15,6 +16,14 @@ useEffect(()=>{
   if (!jwt){
     return;
   }
+  api
+  .getUserInfo(jwt)
+  .then(({username, email})=>{
+    setIsLoggedIn(true);
+    setUserData({username,email});
+    navigate("/ducks");
+  })
+  .catch(console.error);
 },[])
 const [userData, setUserData] = useState({username: "", email: ""})
 const [isLoggedIn, setIsLoggedIn] = useState(false);

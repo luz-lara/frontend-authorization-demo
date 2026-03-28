@@ -1,8 +1,8 @@
-import { getToken } from "./token";
+
 
 export const BASE_URL = "https://api.nomoreparties.co";
 
-export const getUserInfo = (getToken) => {
+export const getUserInfo = (token) => {
     return fetch(`${BASE_URL}/users/me`,{
         method: "GET",
         headers:{
